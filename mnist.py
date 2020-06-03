@@ -4,11 +4,11 @@
 # Date: 2020/05/25
 
 """
-minist 图像数据: 
+mnist 图像数据: 
 32bit Magic Number + 32bit number of images + 32bit row + 32bit column 
 + 8bit pixels ...
 
-minist 标签数据:
+mnist 标签数据:
 32bit Magic Number + 32bit number of items 
 + 8bit labels ...
 """
@@ -19,13 +19,13 @@ import os
 
 
 IMAGE_SIZE = 784
-minist_path = {
+mnist_path = {
     'train_img': "db/train-images-idx3-ubyte",
     'train_label': "db/train-labels-idx1-ubyte",
     'test_img': "db/test-images-idx3-ubyte",
     'test_label': "db/test-labels-idx1-ubyte"
 }
-minist_pkl_path = "db/minist.pkl"
+mnist_pkl_path = "db/mnist.pkl"
 
 
 def load_label(path):
@@ -43,10 +43,10 @@ def load_img(path):
 
 def generate_dataset():
     dataset = {}
-    dataset['train_img'] = load_img(minist_path['train_img'])
-    dataset['train_label'] = load_label(minist_path['train_label'])
-    dataset['test_img'] = load_img(minist_path['test_img'])
-    dataset['test_label'] = load_label(minist_path['test_label'])
+    dataset['train_img'] = load_img(mnist_path['train_img'])
+    dataset['train_label'] = load_label(mnist_path['train_label'])
+    dataset['test_img'] = load_img(mnist_path['test_img'])
+    dataset['test_label'] = load_label(mnist_path['test_label'])
     return dataset
 
 
@@ -57,13 +57,13 @@ def convert_onehot_label(X):
     return onehot_label
 
 
-def dump_minist():
+def dump_mnist():
     dataset = generate_dataset()
-    with open(minist_pkl_path, 'wb') as minist_file:
-        pickle.dump(dataset, minist_file, -1)
+    with open(mnist_pkl_path, 'wb') as mnist_file:
+        pickle.dump(dataset, mnist_file, -1)
 
 
-def load_minist(normalize=True, flatten=True, one_hot_label=False):
+def load_mnist(normalize=True, flatten=True, one_hot_label=False):
     """
     :param normalize: 
         True: 将图像像素正则化为[0.0, 1.0]
@@ -76,10 +76,10 @@ def load_minist(normalize=True, flatten=True, one_hot_label=False):
         False: 返回单个标签， 如 2
     :return: (训练图像，训练标签), (测试图像， 测试标签)
     """
-    if not os.path.exists(minist_pkl_path):
-        dump_minist()
-    with open(minist_pkl_path, 'rb') as minist_pkl:
-        dataset = pickle.load(minist_pkl)
+    if not os.path.exists(mnist_pkl_path):
+        dump_mnist()
+    with open(mnist_pkl_path, 'rb') as mnist_pkl:
+        dataset = pickle.load(mnist_pkl)
     
     if normalize: 
         for key in ('train_img', 'test_img'):
@@ -98,4 +98,4 @@ def load_minist(normalize=True, flatten=True, one_hot_label=False):
 
 
 if __name__ == "__main__":
-    dump_minist()
+    dump_mnist()

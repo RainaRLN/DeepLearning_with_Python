@@ -11,7 +11,7 @@ import json
 from loss_function import cross_entropy_error
 from activation_func import softmax, sigmoid, sigmoid_grad
 from numerical_function import numerical_gradient_no_batch
-from minist import load_minist
+from mnist import load_mnist
 
 
 class TwoLayerNet:
@@ -95,14 +95,14 @@ class TwoLayerNet:
 
 
 if __name__ == "__main__":
-    (train_img, train_label), (test_img, test_label) = load_minist(normalize=True, one_hot_label=True)
+    (train_img, train_label), (test_img, test_label) = load_mnist(normalize=True, one_hot_label=True)
     network = TwoLayerNet(input_size=784, hidden_size=50, output_size=10)
 
     iters_times = 10000
     train_size = train_img.shape[0]
-    batch_size = 1000
+    batch_size = 100
     learn_rate = 0.1
-    epoch = 10
+    epoch = max(int(train_size / batch_size), 1)
 
     train_acc_list = []
     print("Start trainning ...")
@@ -119,23 +119,19 @@ if __name__ == "__main__":
         for key in ('W1', 'b1', 'W2', 'b2'):
             network.params[key] -= learn_rate * grad[key]
 
-        if i % epoch == 0:
+        if i % epoch == 0 or i == iters_times-1:
             acc = network.accuracy()
             print(i, acc)
             train_acc_list.append(acc)
 
-    acc = network.accuracy()
-    print(i, acc)
-    train_acc_list.append(acc)
     params = {}
     params['W1'] = network.params['W1'].tolist()
     params['b1'] = network.params['b1'].tolist()
     params['W2'] = network.params['W2'].tolist()
     params['b2'] = network.params['b2'].tolist()
 
-    f = open("784x50x10-%.5f.json" % acc, 'w')
+    f = open("./db/param_result/784x50x10-%.5f.json" % acc, 'w')
     f.write(json.dumps(params))
     f.close()
     plt.plot(np.arange(len(train_acc_list)), train_acc_list)
     plt.show()
-

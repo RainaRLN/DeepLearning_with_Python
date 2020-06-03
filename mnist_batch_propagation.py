@@ -6,14 +6,14 @@
 import numpy as np
 import pickle
 
-from minist import load_minist
+from mnist import load_mnist
 from three_layer_neural_network import forward
 
 BATCH_SIZE = 100
 
 
 def get_test_data():
-    (_, _), (test_img, test_label) = load_minist(normalize=True, flatten=True, one_hot_label=False)
+    (_, _), (test_img, test_label) = load_mnist(normalize=True, flatten=True, one_hot_label=False)
     return test_img, test_label
 
 

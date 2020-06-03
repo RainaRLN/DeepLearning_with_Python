@@ -4,7 +4,7 @@
 # Date: 2020/05/26
 
 from PIL import Image
-from minist import load_minist
+from mnist import load_mnist
 import numpy as np
 
 
@@ -14,7 +14,7 @@ def img_show(img):
 
 
 if __name__ == "__main__":
-    (train_img, train_label), (test_img, test_label) = load_minist(normalize=False, flatten=True, one_hot_label=False)
+    (train_img, train_label), (test_img, test_label) = load_mnist(normalize=False, flatten=True, one_hot_label=False)
     img = train_img[3].reshape(28, 28)
     label = train_label[3]
     print(label)
