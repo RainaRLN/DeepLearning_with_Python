@@ -8,7 +8,7 @@ from collections import OrderedDict
 import matplotlib.pyplot as plt
 import json
 
-from layer_navie import Affine, Relu, SoftmaxWithLoss
+from layers import Affine, Relu, SoftmaxWithLoss
 from numerical_function import numerical_gradient
 from mnist import load_mnist
 

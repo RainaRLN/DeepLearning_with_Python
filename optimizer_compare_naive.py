@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 from collections import OrderedDict
 from mpl_toolkits.mplot3d import Axes3D
 
-from optimizer import SDG, Momentum, AdaGrad, Adam
+from optimizer import SGD, Momentum, AdaGrad, Adam
 
 
 def f(x, y):
@@ -24,7 +24,7 @@ if __name__ == "__main__":
     params = {}
     grads = {}
     optimizers = OrderedDict()
-    optimizers['SDG'] = SDG(lr=0.95)
+    optimizers['SGD'] = SGD(lr=0.95)
     optimizers['Momentum'] = Momentum(lr=0.1)
     optimizers['AdaGrad'] = AdaGrad(lr=1.5)
     optimizers['Adam'] = Adam(lr=0.3)

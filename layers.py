@@ -134,6 +134,21 @@ class SoftmaxWithLoss:
         return dx
 
 
+class Dropout:
+    pass
+
+
+class BatchNormalization:
+    pass
+
+
+class Convolution:
+    pass
+
+
+class Pooling:
+    pass
+
 if __name__ == "__main__":
     pass
 

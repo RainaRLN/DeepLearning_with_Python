@@ -6,7 +6,7 @@
 import numpy as np
 
 
-class SDG:
+class SGD:
     def __init__(self, lr=0.01):
         self.lr = lr
 
