@@ -5,7 +5,6 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
-from collections import OrderedDict
 import json
 
 from loss_function import cross_entropy_error
@@ -15,13 +14,12 @@ from mnist import load_mnist
 
 
 class TwoLayerNet:
-    def __init__(self, input_size, hidden_size, output_size,
-                    weight_init_std=0.01):
+    def __init__(self, input_size, hidden_size, output_size, weight_init_std=0.01):
         """
         :param input_size: 输入层神经元数
         :param hidden_size: 隐藏层神经元数
         :param output_size: 输出层神经元数
-        :param weight_init_std: 
+        :param weight_init_std: 权重标准差
         return: None
         """
         self.params = {}
@@ -32,10 +30,9 @@ class TwoLayerNet:
         self.x = None
         self.t = None
 
-
     def set_x(self, x):
         self.x = x
-    
+
     def set_t(self, t):
         self.t = t
 
@@ -47,7 +44,7 @@ class TwoLayerNet:
         a2 = np.dot(z1, W2) + b2
         y = softmax(a2)
         return y
-    
+
     def loss(self):
         y = self.predict()
         return cross_entropy_error(y, self.t)
@@ -72,20 +69,20 @@ class TwoLayerNet:
         W1, W2 = self.params['W1'], self.params['W2']
         b1, b2 = self.params['b1'], self.params['b2']
         grads = {}
-        
+
         batch_num = self.x.shape[0]
-        
+
         # forward
         a1 = np.dot(self.x, W1) + b1
         z1 = sigmoid(a1)
         a2 = np.dot(z1, W2) + b2
         y = softmax(a2)
-        
+
         # backward
         dy = (y - self.t) / batch_num
         grads['W2'] = np.dot(z1.T, dy)
         grads['b2'] = np.sum(dy, axis=0)
-        
+
         da1 = np.dot(dy, W2.T)
         dz1 = sigmoid_grad(a1) * da1
         grads['W1'] = np.dot(self.x.T, dz1)
@@ -119,7 +116,7 @@ if __name__ == "__main__":
         for key in ('W1', 'b1', 'W2', 'b2'):
             network.params[key] -= learn_rate * grad[key]
 
-        if i % epoch == 0 or i == iters_times-1:
+        if i % epoch == 0 or i == iters_times - 1:
             acc = network.accuracy()
             print(i, acc)
             train_acc_list.append(acc)

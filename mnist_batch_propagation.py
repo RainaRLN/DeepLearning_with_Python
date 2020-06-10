@@ -29,10 +29,10 @@ if __name__ == "__main__":
 
     accuracy_cnt = 0
     for i in range(0, len(test_img), BATCH_SIZE):
-        test_img_batch = test_img[i : i+BATCH_SIZE]
+        test_img_batch = test_img[i:i + BATCH_SIZE]
         y_batch = forward(network, test_img_batch)
         p = np.argmax(y_batch, axis=1)  # 行方向
-        test_label_batch = test_label[i : i+BATCH_SIZE]
+        test_label_batch = test_label[i:i + BATCH_SIZE]
         accuracy_cnt += np.sum(test_label_batch == p)
-    
-    print("Accuracy: %f" % (float(accuracy_cnt) / len(test_img)) )
+
+    print("Accuracy: %f" % (float(accuracy_cnt) / len(test_img)))

@@ -13,12 +13,12 @@ def numerical_diff(f, x):
     return: x点处的导数
     """
     h = 1e-4
-    return (f(x+h) - f(x-h)) / (2 * h)
+    return (f(x + h) - f(x - h)) / (2 * h)
 
 
 def numerical_gradient_no_batch(f, x):
     """
-    :param f: 
+    :param f:
     :param x:
     return: 返回函数f(*)在点x处的梯度
     """
@@ -39,7 +39,7 @@ def numerical_gradient_no_batch(f, x):
 
         x[idx] = tmp_val
         it.iternext()
-    
+
     return grad
 
 
@@ -48,10 +48,10 @@ def numerical_gradient(f, X):
         return numerical_gradient_no_batch(f, X)
     else:
         grad = np.zeros_like(X)
-        
+
         for idx, x in enumerate(X):
             grad[idx] = numerical_gradient_no_batch(f, x)
-        
+
         return grad
 
 
@@ -82,7 +82,7 @@ def gradient_descent(f, init_x, rate=0.01, step_num=100):
         grad = numerical_gradient(f, x)
         print(grad)
         x -= rate * grad
-    
+
     return x
 
 

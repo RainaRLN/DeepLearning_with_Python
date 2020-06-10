@@ -31,5 +31,5 @@ if __name__ == "__main__":
         p = np.argmax(y)
         if p == test_label[i]:
             accuracy_cnt += 1
-    
-    print("Accuracy: %f" % (float(accuracy_cnt) / len(test_img)) )
+
+    print("Accuracy: %f" % (float(accuracy_cnt) / len(test_img)))

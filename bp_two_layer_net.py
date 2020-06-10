@@ -14,8 +14,7 @@ from mnist import load_mnist
 
 
 class TwoLayerNet:
-    def __init__(self, input_size, hidden_size, output_size, 
-                weight_init_std = 0.01):
+    def __init__(self, input_size, hidden_size, output_size, weight_init_std=0.01):
         self.params = {}
         self.params['W1'] = weight_init_std * np.random.randn(input_size, hidden_size)
         self.params['b1'] = np.zeros(hidden_size)
@@ -37,13 +36,13 @@ class TwoLayerNet:
     def predict(self, x):
         for layer in self.layers.values():
             x = layer.forward(x)
-        
+
         return x
 
     def loss(self, x, t):
         y = self.predict(x)
         return self.last_layer.forward(y, t)
-    
+
     def accuracy(self, x, t):
         y = self.predict(x)
         y = np.argmax(y, axis=1)
@@ -91,11 +90,11 @@ if __name__ == "__main__":
     batch_size = 100
     learn_rate = 0.1
     epoch = max(int(train_size / batch_size), 1)
-    
+
     train_loss_list = []
     train_acc_list = []
     test_acc_list = []
-    
+
     print("Start trainning ...")
     for i in range(iters_times):
         batch_mask = np.random.choice(train_size, batch_size)
@@ -108,7 +107,7 @@ if __name__ == "__main__":
         for key in ('W1', 'b1', 'W2', 'b2'):
             network.params[key] -= learn_rate * grad[key]
 
-        if i % epoch == 0 or i == iters_times-1:
+        if i % epoch == 0 or i == iters_times - 1:
             train_acc = network.accuracy(train_img_batch, train_label_batch)
             test_acc = network.accuracy(test_img, test_label)
             print(i, train_acc, test_acc)

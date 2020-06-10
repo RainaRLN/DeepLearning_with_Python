@@ -6,7 +6,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from collections import OrderedDict
-from mpl_toolkits.mplot3d import Axes3D
+# from mpl_toolkits.mplot3d import Axes3D
 
 from optimizer import SGD, Momentum, AdaGrad, Adam
 
@@ -37,7 +37,7 @@ if __name__ == "__main__":
         optimizer = optimizers[key]
         x_history = []
         y_history = []
-        params['x'],  params['y'] = init_pos[0], init_pos[1]
+        params['x'], params['y'] = init_pos[0], init_pos[1]
         grads['x'], grads['y'] = 0, 0
 
         iters_times = 30
@@ -69,7 +69,7 @@ if __name__ == "__main__":
         plt.title(key)
         plt.xlabel("x")
         plt.ylabel("y")
-        
+
         idx += 1
 
     plt.show()

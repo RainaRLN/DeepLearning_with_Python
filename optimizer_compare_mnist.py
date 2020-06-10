@@ -13,10 +13,10 @@ from multi_layer_net import MultiLayerNet
 
 def smooth_curve(x):
     window_len = 11
-    s = np.r_[x[window_len-1:0:-1], x, x[-2:-window_len-1:-1]]
+    s = np.r_[x[window_len - 1:0:-1], x, x[-2:-window_len - 1:-1]]
     w = np.kaiser(window_len, 2)  # 凯泽窗
-    y = np.convolve(w/w.sum(), s, mode='valid') # 卷积
-    return y[window_len//2: len(y)-window_len//2]
+    y = np.convolve(w / w.sum(), s, mode='valid')  # 卷积
+    return y[window_len // 2:len(y) - window_len // 2]
 
 
 if __name__ == "__main__":
@@ -36,10 +36,7 @@ if __name__ == "__main__":
     networks = {}
     train_loss = {}
     for key in optimizers.keys():
-        networks[key] = MultiLayerNet(
-            input_size=784, 
-            hidden_size_list=[100, 100, 100, 100], 
-            output_size=10)
+        networks[key] = MultiLayerNet(input_size=784, hidden_size_list=[100, 100, 100, 100], output_size=10)
         train_loss[key] = []
 
     # 训练网络
@@ -52,14 +49,14 @@ if __name__ == "__main__":
             # 计算梯度 更新参数
             grads = networks[key].gradient(train_img_batch, train_label_batch)
             optimizers[key].update(networks[key].params, grads)
-            
+
             # 计算 loss
             loss = networks[key].loss(train_img_batch, train_label_batch)
             train_loss[key].append(loss)
 
         # 每 100 次打印 1 次 loss
         if i % 100 == 0:
-            print( "=========== " + "iteration: " + str(i) + " ===========")
+            print("=========== " + "iteration: " + str(i) + " ===========")
             for key in optimizers.keys():
                 print(key + ": " + str(train_loss[key][-1]))
 

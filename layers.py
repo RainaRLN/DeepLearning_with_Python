@@ -13,14 +13,14 @@ class MulLayer:
     def __init__(self):
         self.x = None
         self.y = None
-    
+
     def forward(self, x, y):
         self.x = x
         self.y = y
         out = x * y
 
         return out
-    
+
     def backward(self, dout):
         dx = dout * self.y
         dy = dout * self.x
@@ -84,8 +84,8 @@ class Affine:
         self.dW = None
         self.db = None
 
-        self.original_x_shape = None # 
-    
+        self.original_x_shape = None
+
     def forward(self, x):
         # self.x = x
         # out = np.dot(x, self.W) + self.b
@@ -107,7 +107,7 @@ class Affine:
         self.db = np.sum(dout, axis=0)
         dx = dx.reshape(*self.original_x_shape)  # 还原输入数据的形状（对应张量）
         return dx
-    
+
 
 class SoftmaxWithLoss:
     def __init__(self):
@@ -124,7 +124,7 @@ class SoftmaxWithLoss:
 
     def backward(self, dout=1):
         batch_size = self.t.shape[0]
-        if self.t.size == self.y.size: # one-hot
+        if self.t.size == self.y.size:  # one-hot
             dx = (self.y - self.t) / batch_size
         else:
             dx = self.y.copy()
@@ -135,7 +135,12 @@ class SoftmaxWithLoss:
 
 
 class Dropout:
-    pass
+    def __init__(self, dropout_ration=0.5):
+        self.dropout_ration = dropout_ration
+        self.mask = None
+
+    def forward(self, x, train_flag=True):
+        pass
 
 
 class BatchNormalization:
@@ -149,6 +154,6 @@ class Convolution:
 class Pooling:
     pass
 
+
 if __name__ == "__main__":
     pass
-
