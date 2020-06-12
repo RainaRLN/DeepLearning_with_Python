@@ -93,6 +93,5 @@ if __name__ == "__main__":
         else:
             plt.xlabel("epoch")
 
-        plt.legend(loc="lower right")
-
+    plt.legend(loc="lower right")
     plt.show()
