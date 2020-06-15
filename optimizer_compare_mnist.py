@@ -9,14 +9,7 @@ import matplotlib.pyplot as plt
 from mnist import load_mnist
 from optimizer import SGD, Momentum, AdaGrad, Adam
 from multi_layer_net import MultiLayerNet
-
-
-def smooth_curve(x):
-    window_len = 11
-    s = np.r_[x[window_len - 1:0:-1], x, x[-2:-window_len - 1:-1]]
-    w = np.kaiser(window_len, 2)  # 凯泽窗
-    y = np.convolve(w / w.sum(), s, mode='valid')  # 卷积
-    return y[window_len // 2:len(y) - window_len // 2]
+from utils import smooth_curve
 
 
 if __name__ == "__main__":
